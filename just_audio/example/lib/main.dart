@@ -22,7 +22,8 @@ class _ReproState extends State<Repro> {
   @override
   void initState() {
     super.initState();
-    _player.currentIndexStream.listen((index) {
+    // distinct(): setLoopMode re-emits the current index.
+    _player.currentIndexStream.distinct().listen((index) {
       setState(() => _log.add('currentIndex: $index'));
       // Loop item 1 as soon as the player moves onto it.
       if (index == 1) _player.setLoopMode(LoopMode.one);
